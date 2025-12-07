@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos - Shaam-Show</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #FF6B35, #FF4757);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filter-bar {
+            background: var(--bg-light);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .video-stats {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .load-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-orange);
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+     .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+       
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .filter-options {
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-podcast"></i> Shaam-Show
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="videos.html" class="active"><i class="fas fa-video"></i> Videos</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="../admin/login.php" class="admin-link"><i class="fas fa-lock"></i> Admin</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Theme</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="hero-content">
+            <h1>Video Library</h1>
+            <p>Watch our latest podcast episodes, tutorials, and behind-the-scenes content</p>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="section">
+        <div class="filter-bar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search videos..."  style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                <button class="btn btn-primary" onclick="searchVideos()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="filter-options">
+                <select class="filter-select" id="sortSelect" onchange="loadVideos()"  style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+                <select class="filter-select" id="categorySelect" onchange="loadVideos()"  style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Video Stats -->
+        <div class="video-stats" id="videoStats">
+            Loading videos...
+        </div>
+
+        <!-- Videos Grid -->
+        <div class="video-grid" id="videosGrid">
+            <!-- Videos will be loaded here dynamically -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more">
+            <button class="btn btn-primary" id="loadMoreBtn" onclick="loadMoreVideos()" style="display: none;">
+                <i class="fas fa-plus"></i> Load More Videos
+            </button>
+        </div>
+    </section>
+
+    <!-- Comment Section -->
+    <section class="section section-dark">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 class="section-title">Join the Conversation</h2>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">
+                Share your thoughts about our videos
+            </p>
+
+            <form class="comment-form" id="videoCommentForm" style="background: #1A202C; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(255, 253, 253, 0.1); color: #CBD5E0;">
+                <input type="hidden" name="video_id" id="commentVideoId">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label for="comment_name" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Name *</label>
+                        <input type="text" id="comment_name" name="author_name" placeholder="enter your name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment_email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Email</label>
+                        <input type="email" id="comment_email" name="author_email" placeholder="enter your email" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment_content" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Comment *</label>
+                    <textarea id="comment_content" name="content" class="form-control" required 
+                              style="min-height: 120px; resize: vertical;"
+                              placeholder="Share your thoughts about our videos..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Post Comment
+                </button>
+                
+                <p style="text-align: center; color: var(--text-light); margin-top: 1rem; font-size: 0.9rem;">
+                    Comments are moderated and will appear after approval.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                    <div>
+                        <h3 style="color: white; margin-bottom: 1rem; font-size: 1.5rem;">
+                            <i class="fas fa-podcast"></i> Shaam-Show
+                        </h3>
+                        <p style="color: #CBD5E0; line-height: 1.6;">
+                            Creating inspiring content that connects, educates, and entertains audiences worldwide.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="color: white; margin-bottom: 1rem;">Quick Links</h4>
+                        <ul style="list-style: none; color: #CBD5E0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="index.html" style="color: #CBD5E0; text-decoration: none;">Home</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: #CBD5E0; text-decoration: none;">About</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="blog.html" style="color: #CBD5E0; text-decoration: none;">Blog</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="gallery.html" style="color: #CBD5E0; text-decoration: none;">Gallery</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="videos.html" style="color: #CBD5E0; text-decoration: none;">Videos</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: white; margin-bottom: 1rem;">Stay Updated</h4>
+                        <p style="color: #CBD5E0; margin-bottom: 1rem;">Subscribe to get latest updates</p>
+                        <form class="newsletter-form" style="display: flex; gap: 0.5rem;">
+                            <input type="email" placeholder="Your email" required 
+                                   style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #4A5568; padding-top: 2rem; text-align: center; color: #CBD5E0;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <div class="g-ytsubscribe" data-channel="shaam-show" data-layout="default" data-count="default"></div>
+                    </div>
+                    <p>&copy; 2024 Shaam-Show. All rights reserved. | Designed by Somali Programmer</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- YouTube subscribe widget -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; justify-content: center; align-items: center;">
+        <div style="position: relative; width: 90%; max-width: 800px;">
+            <button class="video-close" onclick="closeVideoModal()" style="position: absolute; top: -40px; right: 0; background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">×</button>
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                <iframe id="videoIframe" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentPage = 1;
+        let currentSearch = '';
+        let currentSort = 'newest';
+        let currentCategory = '';
+        let isLoading = false;
+
+        // Load videos when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVideos();
+            setupCommentForm();
+        });
+
+        // Load videos from API
+        async function loadVideos() {
+            currentPage = 1;
+            currentSearch = document.getElementById('searchInput').value;
+            currentSort = document.getElementById('sortSelect').value;
+            currentCategory = document.getElementById('categorySelect').value;
+            
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '<div class="loading">Loading videos...</div>';
+            
+            try {
+                let url = `../api/get-videos.php?page=${currentPage}&limit=12`;
+                if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`;
+                if (currentSort) url += `&sort=${currentSort}`;
+                if (currentCategory) url += `&category=${encodeURIComponent(currentCategory)}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                displayVideos(data.videos || data);
+                updateVideoStats(data.videos ? data.videos.length : data.length, data.total || data.length);
+                
+                // Show/hide load more button
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                if (data.videos && data.videos.length === 12) {
+                    loadMoreBtn.style.display = 'block';
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+                
+                // Populate categories
+                populateCategories(data.categories || []);
+                
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><h3>Error Loading Videos</h3><p>Please try again later.</p></div>';
+            }
+        }
+
+        // Load more videos
+        async function loadMoreVideos() {
+            if (isLoading) return;
+            
+            isLoading = true;
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            
+            try {
+                currentPage++;
+                let url = `../api/get-videos.php?page=${currentPage}&limit=12`;
+                if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`;
+                if (currentSort) url += `&sort=${currentSort}`;
+                if (currentCategory) url += `&category=${encodeURIComponent(currentCategory)}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                const videos = data.videos || data;
+                
+                if (videos.length > 0) {
+                    displayVideos(videos, true);
+                    
+                    if (videos.length < 12) {
+                        loadMoreBtn.style.display = 'none';
+                    }
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.error('Error loading more videos:', error);
+            } finally {
+                isLoading = false;
+                loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> Load More Videos';
+            }
+        }
+
+        // Display videos in grid
+        function displayVideos(videos, append = false) {
+            const grid = document.getElementById('videosGrid');
+            
+            if (!append) {
+                grid.innerHTML = '';
+            }
+            
+            if (videos.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-video-slash"></i>
+                        <h3>No Videos Found</h3>
+                        <p>${currentSearch ? 'Try adjusting your search terms' : 'Check back soon for new content!'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            videos.forEach(video => {
+                const videoElement = `
+                    <div class="video-card fade-in-up" data-video-id="${video.youtube_id}">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/${video.youtube_id}/maxresdefault.jpg" 
+                                 alt="${video.title}"
+                                 onerror="this.src='https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg'">
+                            <button class="play-button" onclick="openVideoModal('${video.youtube_id}')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div style="padding: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-dark);">
+                                ${video.title}
+                            </h3>
+                            <p style="color: var(--text-light); margin-bottom: 1rem; line-height: 1.5; font-size: 0.9rem;">
+                                ${video.description || 'No description available.'}
+                            </p>
+                            <div class="video-meta">
+                                <span>${new Date(video.created_at).toLocaleDateString()}</span>
+                                <button class="like-btn" data-video-id="${video.id}" 
+                                        style="background: none; border: none; color: var(--text-light); cursor: pointer; font-size: 0.9rem;">
+                                    <i class="far fa-heart"></i>
+                                    <span class="like-count">${video.likes || 0}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += videoElement;
+            });
+        }
+
+        // Update video statistics
+        function updateVideoStats(shown, total) {
+            const stats = document.getElementById('videoStats');
+            stats.textContent = `Showing ${shown} of ${total} videos`;
+        }
+
+        // Populate categories dropdown
+        function populateCategories(categories) {
+            const select = document.getElementById('categorySelect');
+            
+            // Keep "All Categories" option
+            const allOption = select.querySelector('option[value=""]');
+            select.innerHTML = '';
+            select.appendChild(allOption);
+            
+            // Add unique categories from videos
+            const uniqueCategories = [...new Set(categories)];
+            uniqueCategories.forEach(category => {
+                if (category) {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Search videos
+        function searchVideos() {
+            loadVideos();
+        }
+
+        // Open video modal
+        function openVideoModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoIframe');
+            
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Set video ID for comments
+            document.getElementById('commentVideoId').value = videoId;
+        }
+
+        // Close video modal
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoIframe');
+            
+            iframe.src = '';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Setup comment form
+        function setupCommentForm() {
+            const form = document.getElementById('videoCommentForm');
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+
+                try {
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+                    submitBtn.disabled = true;
+
+                    const response = await fetch('../api/submit-comment.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.reset();
+                        showNotification('Thank you for your comment! It will be visible after approval.', 'success');
+                    } else {
+                        showNotification('Error: ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showNotification('An error occurred while posting your comment.', 'error');
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                padding: 1rem 2rem;
+                background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                color: white;
+                border-radius: 5px;
+                z-index: 4000;
+                animation: slideIn 0.3s ease;
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchVideos();
+            }
+        });
+    </script>
+</body>
+</html>

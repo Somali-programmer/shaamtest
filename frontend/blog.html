@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Shaam-Show</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .page-header {
+            background: linear-gradient(135deg, #FF6B35, #FF4757);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 15px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-widget {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-widget h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--primary-orange);
+            padding-bottom: 0.5rem;
+        }
+
+        .categories-list {
+            list-style: none;
+        }
+
+        .categories-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .categories-list a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .categories-list a:hover {
+            color: var(--primary-orange);
+        }
+
+        .category-count {
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .recent-posts .post-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .post-item img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .post-item-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .post-item-content .post-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: white;
+            color: var(--text-dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: var(--primary-orange);
+            color: white;
+            border-color: var(--primary-orange);
+        }
+
+        .filter-bar {
+            background: var(--bg-light);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .blog-stats {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .load-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-orange);
+        }
+
+        @media (max-width: 968px) {
+            .blog-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .filter-options {
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-podcast"></i> Shaam-Show
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="blog.html" class="active"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="videos.html"><i class="fas fa-video"></i> Videos</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="../admin/login.php" class="admin-link"><i class="fas fa-lock"></i> Admin</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Theme</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="hero-content">
+            <h1>Blog & Articles</h1>
+            <p>Insights, stories, and expertise from our content creation journey</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="search-box" >
+                <!-- xagaan ka badalay inline-->
+                <input type="text" id="searchInput" placeholder="Search blog posts..."  style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                <button class="btn btn-primary" onclick="searchPosts()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="filter-options">
+                <!-- xagaan ka badalay inline-->
+                <select class="filter-select"  style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;" id="sortSelect" onchange="loadPosts()">
+                    <option value="newest" >Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+                 <!-- xagaan ka badalay inline-->
+                <select class="filter-select"  style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;" id="categorySelect" onchange="loadPosts()">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Blog Stats -->
+        <div class="blog-stats" id="blogStats">
+            Loading posts...
+        </div>
+
+        <div class="blog-layout">
+            <!-- Main Blog Content -->
+            <div class="blog-main">
+                <div class="blog-grid" id="blogGrid">
+                    <!-- Posts will be loaded here dynamically -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more">
+                    <button class="btn btn-primary" id="loadMoreBtn" onclick="loadMorePosts()" style="display: none;">
+                        <i class="fas fa-plus"></i> Load More Posts
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3 ><i class="fas fa-folder"></i> Categories</h3>
+                    <ul class="categories-list" id="categoriesList">
+                        <li><a href="#">Technology <span class="category-count">5</span></a></li>
+                        <li><a href="#">Lifestyle <span class="category-count">3</span></a></li>
+                        <li><a href="#">Entertainment <span class="category-count">2</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Recent Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-clock"></i> Recent Posts</h3>
+                    <div class="recent-posts" id="recentPosts">
+                        <!-- Recent posts will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-tags"></i> Popular Tags</h3>
+                    <div class="tags-cloud" id="tagsCloud">
+                        <!-- Tags will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget">
+                    <h3><i class="fas fa-newspaper"></i> Newsletter</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 0.9rem;">
+                        Get the latest posts delivered to your inbox.
+                    </p>
+                    <!-- xagaan ka badalay inline-->
+                    <form class="newsletter-form" style="display: flex; gap: 0.5rem;">
+                        <input type="email" placeholder="Your email" required 
+                                style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem;">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                    <div>
+                        <h3 style="color: white; margin-bottom: 1rem; font-size: 1.5rem;">
+                            <i class="fas fa-podcast"></i> Shaam-Show
+                        </h3>
+                        <p style="color: #CBD5E0; line-height: 1.6;">
+                            Creating inspiring content that connects, educates, and entertains audiences worldwide.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="color: white; margin-bottom: 1rem;">Quick Links</h4>
+                        <ul style="list-style: none; color: #CBD5E0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="index.html" style="color: #CBD5E0; text-decoration: none;">Home</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: #CBD5E0; text-decoration: none;">About</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="blog.html" style="color: #CBD5E0; text-decoration: none;">Blog</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="gallery.html" style="color: #CBD5E0; text-decoration: none;">Gallery</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="videos.html" style="color: #CBD5E0; text-decoration: none;">Videos</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: white; margin-bottom: 1rem;">Stay Updated</h4>
+                        <p style="color: #CBD5E0; margin-bottom: 1rem;">Subscribe to get latest updates</p>
+                        <form class="newsletter-form" style="display: flex; gap: 0.5rem;">
+                            <input type="email" placeholder="Your email" required 
+                                   style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #4A5568; padding-top: 2rem; text-align: center; color: #CBD5E0;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <div class="g-ytsubscribe" data-channel="shaam-show" data-layout="default" data-count="default"></div>
+                    </div>
+                    <p>&copy; 2024 Shaam-Show. All rights reserved. | Designed by Somali Programmer</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- YouTube subscribe widget -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentPage = 1;
+        let currentSearch = '';
+        let currentSort = 'newest';
+        let currentCategory = '';
+        let isLoading = false;
+
+        // Load posts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPosts();
+            loadSidebarContent();
+        });
+
+        // Load posts from API
+        async function loadPosts() {
+            currentPage = 1;
+            currentSearch = document.getElementById('searchInput').value;
+            currentSort = document.getElementById('sortSelect').value;
+            currentCategory = document.getElementById('categorySelect').value;
+            
+            const grid = document.getElementById('blogGrid');
+            grid.innerHTML = '<div class="loading">Loading posts...</div>';
+            
+            try {
+                let url = `../api/get-posts.php?page=${currentPage}&limit=9`;
+                if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`;
+                if (currentSort) url += `&sort=${currentSort}`;
+                if (currentCategory) url += `&category=${encodeURIComponent(currentCategory)}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                displayPosts(data.posts || data);
+                updateBlogStats(data.posts ? data.posts.length : data.length, data.total || data.length);
+                
+                // Show/hide load more button
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                if (data.posts && data.posts.length === 9) {
+                    loadMoreBtn.style.display = 'block';
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><h3>Error Loading Posts</h3><p>Please try again later.</p></div>';
+            }
+        }
+
+        // Load more posts
+        async function loadMorePosts() {
+            if (isLoading) return;
+            
+            isLoading = true;
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            
+            try {
+                currentPage++;
+                let url = `../api/get-posts.php?page=${currentPage}&limit=9`;
+                if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`;
+                if (currentSort) url += `&sort=${currentSort}`;
+                if (currentCategory) url += `&category=${encodeURIComponent(currentCategory)}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                const posts = data.posts || data;
+                
+                if (posts.length > 0) {
+                    displayPosts(posts, true);
+                    
+                    if (posts.length < 9) {
+                        loadMoreBtn.style.display = 'none';
+                    }
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
+                
+            } catch (error) {
+                console.error('Error loading more posts:', error);
+            } finally {
+                isLoading = false;
+                loadMoreBtn.innerHTML = '<i class="fas fa-plus"></i> Load More Posts';
+            }
+        }
+
+        // Display posts in grid
+        function displayPosts(posts, append = false) {
+            const grid = document.getElementById('blogGrid');
+            
+            if (!append) {
+                grid.innerHTML = '';
+            }
+            
+            if (posts.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>No Posts Found</h3>
+                        <p>${currentSearch ? 'Try adjusting your search terms' : 'Check back soon for new content!'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            posts.forEach(post => {
+                const postElement = `
+                    <article class="blog-card fade-in-up">
+                        ${post.featured_image ? `
+                            <img src="../assets/uploads/${post.featured_image}" 
+                                 alt="${post.title}"
+                                 onerror="this.src='assets/images/placeholder-blog.jpg'">
+                        ` : `
+                            <img src="assets/images/placeholder-blog.jpg" alt="Blog post image">
+                        `}
+                        
+                        <div class="blog-content">
+                            ${post.category ? `
+                                <span class="blog-category">${post.category}</span>
+                            ` : ''}
+                            
+                            <h3>${post.title}</h3>
+                            
+                            <p class="blog-excerpt">
+                                ${post.excerpt || post.content.substring(0, 150) + '...'}
+                            </p>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                                <span class="read-time">${post.reading_time || 5} min read</span>
+                                <span style="color: var(--text-light); font-size: 0.9rem;">
+                                    ${new Date(post.created_at).toLocaleDateString()}
+                                </span>
+                            </div>
+                            
+                            <a href="blog-single.html?id=${post.id}" 
+                               class="btn btn-primary" 
+                               style="display: block; text-align: center; margin-top: 1rem;">
+                                Read More
+                            </a>
+                        </div>
+                    </article>
+                `;
+                grid.innerHTML += postElement;
+            });
+        }
+
+        // Update blog statistics
+        function updateBlogStats(shown, total) {
+            const stats = document.getElementById('blogStats');
+            stats.textContent = `Showing ${shown} of ${total} posts`;
+        }
+
+        // Load sidebar content
+        async function loadSidebarContent() {
+            try {
+                // Load recent posts
+                const recentResponse = await fetch('../api/get-posts.php?limit=5');
+                const recentData = await recentResponse.json();
+                const recentPosts = recentData.posts || recentData;
+                
+                displayRecentPosts(recentPosts.slice(0, 5));
+                
+                // Load categories
+                const categoriesResponse = await fetch('../api/get-categories.php');
+                const categories = await categoriesResponse.json();
+                displayCategories(categories);
+                
+                // Load tags (you'll need to create this API endpoint)
+                // displayTags(['technology', 'podcast', 'youtube', 'content', 'tips']);
+                
+            } catch (error) {
+                console.error('Error loading sidebar content:', error);
+            }
+        }
+
+        // Display recent posts in sidebar
+        function displayRecentPosts(posts) {
+            const container = document.getElementById('recentPosts');
+            container.innerHTML = '';
+            
+            posts.forEach(post => {
+                const postItem = `
+                    <div class="post-item">
+                        ${post.featured_image ? `
+                            <img src="../assets/uploads/${post.featured_image}" 
+                                 alt="${post.title}"
+                                 onerror="this.src='assets/images/placeholder-blog.jpg'">
+                        ` : `
+                            <img src="assets/images/placeholder-blog.jpg" alt="${post.title}">
+                        `}
+                        <div class="post-item-content">
+                            <h4><a href="blog-single.html?id=${post.id}" style="color: var(--text-dark); text-decoration: none;">${post.title}</a></h4>
+                            <div class="post-date">${new Date(post.created_at).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += postItem;
+            });
+        }
+
+        // Display categories in sidebar
+        function displayCategories(categories) {
+            const container = document.getElementById('categoriesList');
+            container.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryItem = `
+                    <li>
+                        <a href="javascript:void(0)" onclick="filterByCategory('${category.name}')">
+                            ${category.name} 
+                            <span class="category-count">${category.post_count || 0}</span>
+                        </a>
+                    </li>
+                `;
+                container.innerHTML += categoryItem;
+            });
+        }
+
+        // Display tags in sidebar
+        function displayTags(tags) {
+            const container = document.getElementById('tagsCloud');
+            container.innerHTML = '';
+            
+            tags.forEach(tag => {
+                const tagElement = `<a href="javascript:void(0)" class="tag">${tag}</a>`;
+                container.innerHTML += tagElement;
+            });
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            document.getElementById('categorySelect').value = category;
+            loadPosts();
+        }
+
+        // Search posts
+        function searchPosts() {
+            loadPosts();
+        }
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchPosts();
+            }
+        });
+    </script>
+</body>
+</html>

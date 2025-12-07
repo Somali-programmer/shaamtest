@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Shaam-Show</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-podcast"></i> Shaam-Show
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="videos.html"><i class="fas fa-video"></i> Videos</a></li>
+                <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="section" style="max-width: 900px; margin: 4rem auto;">
+        <h1 class="section-title">Contact Us</h1>
+        <p style="color: var(--text-light);">Have a question, feedback or collaboration idea? Send us a message.</p>
+
+        <form action="../api/submit-contact.php" method="post" style="margin-top: 1.5rem; display: grid; gap: 1rem;">
+            <input type="text" name="name" placeholder="Your name" required class="form-control">
+            <input type="email" name="email" placeholder="Your email" required class="form-control">
+            <input type="text" name="subject" placeholder="Subject" required class="form-control">
+            <textarea name="message" placeholder="Your message" rows="6" required class="form-control"></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+
+        <div style="margin-top: 2rem; color: var(--text-light);">
+            <p><i class="fas fa-map-marker-alt"></i> Based in: Your City</p>
+            <p><i class="fas fa-envelope"></i> Email: <a href="mailto:contact@shaam-show.com">contact@shaam-show.com</a></p>
+            <p><i class="fab fa-youtube"></i> YouTube: <a href="https://youtube.com/shaam-show" target="_blank" rel="noopener noreferrer">Shaam-Show</a></p>
+        </div>
+    </section>
+
+    <footer class="footer" style="margin-top: 4rem;">
+        <div class="section" style="text-align:center;">
+            <div style="margin-bottom: 0.5rem;">
+                <div class="g-ytsubscribe" data-channel="shaam-show" data-layout="default" data-count="default"></div>
+            </div>
+            <p>&copy; 2024 Shaam-Show. All rights reserved. | Designed by Somali Programmer</p>
+        </div>
+    </footer>
+
+    <!-- YouTube subscribe widget -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

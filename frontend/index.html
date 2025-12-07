@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaam-Show - Professional Content Creator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-podcast"></i> Shaam-Show
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="videos.html"><i class="fas fa-video"></i> Videos</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="../admin/login.php" class="admin-link"><i class="fas fa-lock"></i> Admin</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+                <span>Theme</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <h1>Welcome to Shaam-Show</h1>
+            <p>Join thousands of listeners in exploring amazing stories, insights, and conversations that inspire and transform.</p>
+            <a href="#featured" class="cta-button">
+                <i class="fas fa-play-circle"></i> Explore Content
+            </a>
+        </div>
+    </section>
+
+    <!-- Featured Content -->
+    <section id="featured" class="section">
+        <h2 class="section-title">Featured Content</h2>
+        
+        <!-- Featured Blog Posts -->
+        <div class="blog-grid" id="featuredPosts">
+            <!-- Dynamic content will be loaded here -->
+            <div class="loading">Loading featured posts...</div>
+        </div>
+    </section>
+
+    <!-- Latest Videos -->
+    <section class="section section-dark">
+        <h2 class="section-title">Latest Videos</h2>
+        
+        <div class="video-grid" id="featuredVideos">
+            <!-- Dynamic content will be loaded here -->
+            <div class="loading">Loading videos...</div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <h2 class="section-title">Stay Connected</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem; font-size: 1.1rem;">
+                Get the latest updates, exclusive content, and behind-the-scenes insights.
+            </p>
+            
+            <form class="newsletter-form" style="display: flex; gap: 1rem; max-width: 400px; margin: 0 auto;">
+                <input type="email" placeholder="Enter your email" required 
+                       class="form-control" style="flex: 1;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="section">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                    <div>
+                        <h3 style="color: white; margin-bottom: 1rem; font-size: 1.5rem;">
+                            <i class="fas fa-podcast"></i> Shaam-Show
+                        </h3>
+                        <p style="color: #CBD5E0; line-height: 1.6;">
+                            Creating inspiring content that connects, educates, and entertains audiences worldwide.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="color: white; margin-bottom: 1rem;">Quick Links</h4>
+                        <ul style="list-style: none; color: #CBD5E0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="index.html" style="color: #CBD5E0; text-decoration: none;">Home</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="about.html" style="color: #CBD5E0; text-decoration: none;">About</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="blog.html" style="color: #CBD5E0; text-decoration: none;">Blog</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="gallery.html" style="color: #CBD5E0; text-decoration: none;">Gallery</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="videos.html" style="color: #CBD5E0; text-decoration: none;">Videos</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 style="color: white; margin-bottom: 1rem;">Stay Updated</h4>
+                        <p style="color: #CBD5E0; margin-bottom: 1rem;">Subscribe to get latest updates</p>
+                        <form class="newsletter-form" style="display: flex; gap: 0.5rem;">
+                            <input type="email" placeholder="Your email" required 
+                                   style="flex: 1; padding: 0.75rem; border: none; border-radius: 5px; background: rgba(255,255,255,0.1); color: white;">
+                            <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #4A5568; padding-top: 2rem; text-align: center; color: #CBD5E0;">
+                    <div style="margin-bottom: 0.75rem;">
+                        <div class="g-ytsubscribe" data-channel="shaam-show" data-layout="default" data-count="default"></div>
+                    </div>
+                    <p>&copy; 2024 Shaam-Show. All rights reserved. | Designed by Somali Programmer</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <!-- YouTube subscribe widget -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Load dynamic content
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeaturedPosts();
+            loadFeaturedVideos();
+        });
+
+        async function loadFeaturedPosts() {
+            try {
+                const response = await fetch('../api/get-posts.php?limit=3');
+                const posts = await response.json();
+                
+                const container = document.getElementById('featuredPosts');
+                container.innerHTML = '';
+                
+                posts.forEach(post => {
+                    const postElement = `
+                        <article class="blog-card fade-in-up">
+                            <img src="../assets/uploads/${post.featured_image || 'placeholder-blog.jpg'}" 
+                                 alt="${post.title}" 
+                                 onerror="this.src='assets/images/placeholder-blog.jpg'">
+                            <div class="blog-content">
+                                <span class="blog-category">${post.category || 'General'}</span>
+                                <h3>${post.title}</h3>
+                                <p class="blog-excerpt">${post.excerpt || post.content.substring(0, 150) + '...'}</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                                    <span class="read-time">${post.reading_time} min read</span>
+                                    <a href="blog-single.html?id=${post.id}" class="btn btn-primary" style="padding: 0.5rem 1rem;">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                    container.innerHTML += postElement;
+                });
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('featuredPosts').innerHTML = '<p>Error loading posts. Please try again later.</p>';
+            }
+        }
+
+        async function loadFeaturedVideos() {
+            try {
+                const response = await fetch('../api/get-videos.php?limit=3');
+                const videos = await response.json();
+                
+                const container = document.getElementById('featuredVideos');
+                container.innerHTML = '';
+                
+                videos.forEach(video => {
+                    const videoElement = `
+                        <div class="video-card fade-in-up" data-video-id="${video.youtube_id}" data-video-db-id="${video.id}">
+                            <div class="video-thumbnail">
+                                <img src="https://img.youtube.com/vi/${video.youtube_id}/maxresdefault.jpg" 
+                                     alt="${video.title}"
+                                     onerror="this.src='https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg'">
+                                <button class="play-button">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                            <div style="padding: 1.5rem;">
+                                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">${video.title}</h3>
+                                <p style="color: var(--text-light); margin-bottom: 1rem;">${video.description}</p>
+                                <div class="like-btn" data-video-id="${video.id}" style="background: none; border: none; color: var(--text-light); cursor: pointer;">
+                                    <i class="far fa-heart"></i>
+                                    <span class="like-count">0</span> likes
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += videoElement;
+                });
+            } catch (error) {
+                console.error('Error loading videos:', error);
+                document.getElementById('featuredVideos').innerHTML = '<p>Error loading videos. Please try again later.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
